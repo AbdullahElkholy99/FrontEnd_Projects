@@ -1,0 +1,426 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>ElkholyBuzz</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <style>
+        body {
+            margin: 0;
+            font-family: 'Segoe UI', sans-serif;
+        }
+
+        .navbar {
+            /* تخلي العناصر في صف واحد.*/
+            display: flex;
+            /* توزيع العناصر أفقيًا */
+            justify-content: space-between;
+            /* توسيط العناصر عموديًا */
+            align-items: center;
+
+            /* Adds 20px padding top & bottom, 50px left & right, giving space inside the navbar for breathing room. */
+            padding: 20px 50px;
+
+            /* Makes the navbar background white. */
+            background-color: white;
+            /*يضيف ظل ناعم أسفل شريط التنقل، يعطيه مظهرًا بارزًا أو "مرفوعًا" قليلًا عن الخلفية.*/
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+
+        }
+
+        .logo {
+            font-weight: bold;
+            font-size: 20px;
+            /*لون الخط برتقالي*/
+            color: #ff6600;
+            /* يجعل العناصر (الصورة + النص) تظهر بجانب بعض أفقيًا.*/
+            display: flex;
+            /*يجعل الصورة والنص في نفس المستوى عموديًا (في المنتصف).*/
+            align-items: center;
+        }
+
+        .logo-img {
+            height: 30px;
+        }
+
+        .logo-text {
+            /*يضيف مسافة 10px بين الصورة والنص.*/
+            margin-left: 10px;
+            /*يخلي الخط عريض.*/
+            font-weight: bold;
+            /*يحدد حجم الخط 24px.*/
+            font-size: 24px;
+            /*لون الخط برتقالي.*/
+            color: #ff6600;
+        }
+
+        .image {
+            height: 200px;
+            width: 200px;
+            display: flex;
+            position: absolute;
+        }
+
+        /*-----------------*/
+        .hero {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 50px 5%;
+        }
+
+        .hero-text h1 span {
+            color: #ff6600;
+            font-size: larger;
+        }
+
+        .hero-text h1 {
+            color: black;
+            font-size: 35px;
+        }
+
+        .get-started {
+            background-color: #ff6600;
+            color: white;
+            /* Adds padding around the button text. */
+            padding: 10px 20px;
+            /* Removes the default border of the button. */
+            border: none;
+            /* Makes the button edges rounded. */
+            border-radius: 25px;
+            /* Makes the button text bold. */
+            font-weight: 600;
+            /* Changes the cursor to a pointer when hovering over the button. */
+            cursor: pointer;
+            /* Smooth transition for background color change. */
+            transition: background-color 0.3s;
+        }
+
+        .hero-image {
+            flex: 1;
+            display: flex;
+            justify-content: flex-end;
+            align-items: center;
+        }
+
+        .hero-image img {
+            width: 100%;
+            max-width: 500px;
+            height: auto;
+        }
+
+        /*-----------------*/
+
+        .nav-links {
+            /* تخلي العناصر في صف واحد.*/
+            display: flex;
+            /* المسافة بين العناصر في شريط التنقل.*/
+            gap: 30px;
+            /* توسيط العناصر عموديًا.*/
+            align-items: center;
+            list-style: none;
+            margin: 0 auto;
+        }
+
+        .nav-links a {
+            text-decoration: none;
+            color: #333;
+            font-weight: 500;
+            transition: color 0.3s;
+        }
+
+        .nav-links a:hover {
+            color: #ff6600;
+        }
+
+        .nav-links a.active {
+            color: #ff6600;
+        }
+
+        .signup-btn {
+            background-color: #ff6600;
+            color: white;
+            /* Adds padding around the button text. */
+            padding: 10px 20px;
+            /* Removes the default border of the button. */
+            border: none;
+            /* Makes the button edges rounded. */
+            border-radius: 25px;
+            /* Makes the button text bold. */
+            font-weight: 600;
+            /* Changes the cursor to a pointer when hovering over the button. */
+            cursor: pointer;
+            /* Smooth transition for background color change. */
+            transition: background-color 0.3s;
+            text-align: right;
+        }
+
+        .signup-btn:hover {
+            background-color: #e65c00;
+        }
+
+        .right-section {
+            display: flex;
+            align-items: center;
+        }
+
+        @media (max-width: 768px) {
+            .navbar {
+                flex-direction: column;
+                align-items: flex-start;
+
+            }
+
+            .nav-links {
+                flex-direction: column;
+                gap: 10px;
+                margin-top: 10px;
+            }
+        }
+
+        /*------------------------------------*/
+        .services p {
+            text-align: center;
+        }
+
+        .services h2 {
+            text-align: center;
+        }
+
+        .services h2 span {
+            color: #ff6600;
+        }
+
+        .service-cards {
+            /*يُحوّل العنصر إلى شبكة (Grid Layout).*/
+            display: grid;
+            /*يحدد عدد الأعمدة في الشبكة.*/
+            /*في هذه الحالة، لدينا 4 أعمدة.*/
+            grid-template-columns: repeat(4, 1fr);
+            /*يحدد المسافة بين الأعمدة.*/
+            gap: 20px;
+            /*يحدد المسافة بين الصفوف.
+            40px من الأعلى والأسفل
+            5% من الجانبين (يعني نسبة من عرض الصفحة).
+            */
+            padding: 40px 5%;
+        }
+
+        .card {
+            position: relative;
+            background: white;
+            border-radius: 15px;
+            padding: 20px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+            overflow: hidden;
+        }
+
+        .card h3 {
+            /* لإعطاء مساحة للصورة */
+            margin-top: 60px;
+            /* لجعل النص في المنتصف */
+            text-align: center;
+
+        }
+
+        .card-icon {
+            position: absolute;
+            top: 0px;
+            left: 0px;
+            width: 75px;
+            height: 75px;
+
+        }
+
+        /*-------------------FOOTER-----------------*/
+        .footer {
+            /* تخلي العناصر في صف واحد.*/
+            display: flex;
+            /* توزيع العناصر أفقيًا */
+            justify-content: space-between;
+            /* توسيط العناصر عموديًا */
+            align-items: center;
+
+            /* Adds 20px padding top & bottom, 50px left & right, giving space inside the navbar for breathing room. */
+            padding: 20px 50px;
+
+            /* Makes the navbar background white. */
+            background-color: rgb(237, 177, 65);
+            /*يضيف ظل ناعم أسفل شريط التنقل، يعطيه مظهرًا بارزًا أو "مرفوعًا" قليلًا عن الخلفية.*/
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+        }
+
+        .footer-container {
+            font-size: 22px;
+            display: flex;
+            justify-content: space-between;
+            max-width: 1200px;
+            color: white;
+            margin: 0 auto;
+        }
+
+        .footer-section {
+            flex: 1;
+            color: white;
+            padding: 10px;
+        }
+
+        .footer-section h4 {
+            color: white;
+            margin-bottom: 10px;
+        }
+
+        .footer-section ul {
+            list-style-type: none;
+            color: white;
+            padding: 0;
+        }
+
+        .footer-section ul li {
+            color: white;
+            margin-bottom: 5px;
+        }
+
+        .footer-section a {
+            color: white;
+            text-decoration: none;
+        }
+
+        .footer-section a:hover {
+            color: white;
+            text-decoration: underline;
+        }
+
+
+        /*------------------------------------*/
+    </style>
+</head>
+
+<body>
+
+    <div class="navbar">
+        <!-- Logo section with image and text. -->
+        <div class="logo">
+            <img src="../Images/logo.jpg" alt="Logo" class="logo-img">
+            <span class="logo-text">ElkholyBuzz</span>
+        </div>
+
+        <div class="nav-links">
+            <a href="#home" class="active">Home</a>
+            <a href="#about">About us</a>
+            <a href="#services">Services</a>
+            <a href="#contact">Contact us</a>
+            <a href="#blog">Blog</a>
+            <!-- <button class="signup-btn">Sign Up</button> -->
+        </div>
+        <div class="right-section">
+            <button class="signup-btn">Sign Up</button>
+        </div>
+    </div>
+
+    <section class="hero" id="top">
+        <div class="hero-text">
+            <h1>We create <br> <span>solutions</span> for <br>your business</h1>
+            <p>Our team keeps a keen eye on emerging trends <br>
+                and technologies to ensure your marketing <br>
+                compaigns remain cutting-edge.
+            </p>
+            <button class="get-started">Get Started</button>
+        </div>
+        <div class="hero-image">
+            <img src="../Images/man-woman.png" alt="Hero Image" />
+        </div>
+
+    </section>
+
+
+
+    <section class="services" id="services">
+        <h2>We Provide The Best <span>Services</span></h2>
+        <p>Let us unleash the fulll potential of your business <br>
+            with our data-driven strategies</p>
+        <div class="service-cards">
+            <div class="card">
+                <img src="../Images/Services/Maintenance-amico.png" class="card-icon" alt="Icon">
+                <h3>Maintenance-amico</h3>
+                <p> that shows a person doing repair or technical maintenance work.</p>
+            </div>
+            <div class="card">
+                <img src="../Images/Services/Maintenance-bro.png" class="card-icon" alt="Icon">
+                <h3>Maintenance-bro</h3>
+                <p>That shows a person performing maintenance or repair tasks.</p>
+            </div>
+            <div class="card">
+                <img src="../Images/Services/Maintenance-pana.png" class="card-icon" alt="Icon">
+                <h3>Maintenance-pana</h3>
+                <p>is an illustration that shows someone doing maintenance work,
+                    like fixing tools or working on a machine.</p>
+            </div>
+            <div class="card">
+                <img src="../Images/Services/Maintenance-rafiki.png" class="card-icon" alt="Icon">
+                <h3>Maintenance-rafiki</h3>
+                <p>is an illustration showing a person fixing or working on something.</p>
+            </div>
+            <!-- <div class="card">
+                <img src="../Images/Services/Phone maintenance-rafiki.png" class="card-icon" alt="Icon">
+                <h3>Phone maintenance-rafiki</h3>
+                <p>is an illustration showing a person fixing or working on something.</p>
+            </div> -->
+        </div>
+    </section>
+
+    <footer class="footer">
+        <div class="footer-container">
+            <div class="footer-section">
+                <h4>About Us</h4>
+                <p>Information about your company or website.</p>
+            </div>
+
+            <div class="footer-section">
+                <h4>Created By</h4>
+                <p>Abdullah Ali</p>
+                <p>Qwesna, Menofia</p>
+                <p>Email: abdullah.ali.elkholy@example.com</p>
+            </div>
+
+            <div class="footer-section">
+                <h4>Links</h4>
+                <ul>
+                    <li><a href="#top">Home</a></li>
+                    <li><a href="#services">Services</a></li>
+                </ul>
+            </div>
+
+            <div class="footer-section" id="contact">
+                <h4>Contact</h4>
+                <a href="http://wa.me/+201012613453?text=السلام عليكم"><i class="fab fa-whatsapp"></i> whatt's </a><br>
+                <a href="http://t.me/+201012613453"><i class="fab fa-telegram-plane"></i> Telegram</a> <br>
+                <a href="tel:+201012613453"><i class="bi bi-telephone-fill"></i> Call Me</a> <br>
+                <a href="sms:+201012613453"><i class="fas fa-sms"></i> SMS</a> <br>
+                <a href="mailto:abdullah.alielkholy@gmail.com?subject=I Have A Question &body=welcome back"><i
+                        class="fas fa-envelope"></i> Mail</a>
+
+            </div>
+
+            <div class="footer-section">
+                <h4>Follow Us</h4>
+                <ul>
+                    <li><a href="https://www.facebook.com/abdalla.elkholy.946" target="_blank"><i
+                                class="fab fa-facebook-f"></i> Facebook</a></li>
+                    <li><a href="https://www.linkedin.com/in/abdullah-ali-5729b4234?utm_source=share&utm_campaign=share_via&utm_content=profile&utm_medium=android_app"
+                            target="_blank"> <i class="fab fa-linkedin-in"></i> LinkedIn</a>
+                    </li>
+                    <li><a href="#" target="_blank"> <i class="fab fa-instagram"></i> Instagram</a></li>
+                </ul>
+            </div>
+
+        </div>
+    </footer>
+
+
+</body>
+
+</html>

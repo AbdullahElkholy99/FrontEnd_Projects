@@ -1,0 +1,413 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Final Project Web Designer</title>
+    <link rel="stylesheet" href="style.css" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+
+    <!-- Add this inside your <head> or just before </body> -->
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script src="script.js" defer></script>
+
+</head>
+
+<body>
+
+    <div class="container">
+        <header class="navbar">
+            <div class="navbar-container">
+                <div class="logo">
+                    <img src="/FinalProject/Images/logo.jfif" alt="e-Comm Logo" />
+                </div>
+                <nav class="nav-links">
+                    <a href="#home">Home</a>
+                    <a href="#about">About</a>
+                    <a href="#contact">Contact</a>
+                    <a href="../Task/Task06/TaskEidEladha/Demo/blog.html">Blog</a>
+                    <a href="#careers">Careers</a>
+                    <a href="http://realtimeapp.runasp.net/">Chat </a>
+                </nav>
+
+                <div class="nav-cta">
+                    <i class="fa-solid fa-magnifying-glass"></i>
+                    <i class="fa-solid fa-user"></i>
+                    <i class="fa-regular fa-heart"></i>
+                    <i class="fa-solid fa-comment"></i>
+
+                    <i class="fas fa-shopping-basket"></i>
+                    <p class="cart-count"><span id="cart-count">0</span></p>
+
+                </div>
+
+
+
+            </div>
+
+        </header>
+
+
+        <!-- ******************************************* -->
+
+        <div class="image-bk">
+            <div class="txt">
+                <h4> Stylish </h4>
+                <h1>Male Clothes</h1>
+                <p>30% off summer Vacation</p>
+            </div>
+            <button type="button" value="Shop Now"></button>
+
+        </div>
+        <!-- ******************************************* -->
+        <div class="info">
+            <div class="row">
+                <div class="icon">
+                    <i class="fa-solid fa-truck-fast"></i>
+                </div>
+                <div class="titel">
+                    Free Shipping
+                </div>
+                <div class="des">
+                    Lorem ipsum dolor sit amet consectetu adipisicing elit sed
+                </div>
+            </div>
+
+
+            <div class="row">
+                <div class="icon">
+                    <i class="fa-regular fa-clock"></i>
+                </div>
+                <div class="titel">
+                    Support 24/7
+                </div>
+                <div class="des">
+                    Lorem ipsum dolor sit amet consectetu adipisicing elit sed
+                </div>
+            </div>
+
+
+            <div class="row">
+                <div class="icon">
+                    <i class="fa-solid fa-money-bill-wave"></i>
+
+                </div>
+                <div class="titel">
+                    Money Return
+                </div>
+                <div class="des">
+                    Lorem ipsum dolor sit amet consectetu adipisicing elit sed
+                </div>
+            </div>
+        </div>
+
+
+        <!-- ******************************************* -->
+
+        <div class="cart" style="margin-left: 50px;">
+            <h2>🛒 Cart</h2>
+            <ul class="cart-items"></ul>
+            <p class="cart-total">Total: $<span id="cart-total">0</span></p>
+        </div>
+
+        <div class="products">
+
+            <div class="project-title">
+                <h1> New Arrival</h1>
+                <p></p>
+                Lorem ipsum dolor sit amet conse ctetu.
+            </div>
+            <div class="cards">
+
+          
+
+                <div class="card">
+                    <div class="card-img">
+                        <img src="/FinalProject/Images/product1.jpg" alt="e-Comm Logo" />
+                    </div>
+                    <div class="discription-img">
+                        <p class="tit">Winter Zipper</p>
+                        <p class="star">★★★★☆</p>
+                        <p>
+                            <span class="price">$70</span>
+                            &nbsp;
+                            <span class="discount">$100</span>
+                        </p>
+                        <button class="add-to-cart">Add to Cart</button>
+                    </div>
+                </div>
+
+
+                <div class="card">
+                    <div class="card-img">
+                        <img src="/FinalProject/Images/product2.png" alt="e-Comm Logo" />
+
+                    </div>
+                    <div class="discription-img">
+                        <p class="tit">Winter Zipper</p>
+                        <p class="star">★★★★☆</p>
+                        <p>
+                            <span class="price">$70</span>
+                            &nbsp;
+                            <span class="discount">$100</span>
+                        </p>
+
+
+                        <button class="add-to-cart">Add to Cart</button>
+
+                    </div>
+                </div>
+
+
+                <div class="card">
+                    <div class="card-img">
+                        <img src="/FinalProject/Images/product3.jfif" alt="e-Comm Logo" />
+
+                    </div>
+                    <div class="discription-img">
+                        <p class="tit">Winter Zipper</p>
+                        <p class="star">★★★★☆</p>
+                        <p>
+                            <span class="price">$80</span>
+                            &nbsp;
+                            <span class="discount">$100</span>
+                        </p>
+
+
+                        <button class="add-to-cart">Add to Cart</button>
+
+                    </div>
+                </div>
+
+
+                <div class="card" onclick="openModal()">
+                    <div class="card-img">
+                        <img src="/FinalProject/Images/product4.webp" alt="e-Comm Logo" />
+
+                    </div>
+                    <div class="discription-img">
+                        <p class="tit">Winter Zipper</p>
+                        <p class="star">★★★★☆</p>
+                        <p>
+                            <span class="price">$150</span>
+                            &nbsp;
+                            <span class="discount">$100</span>
+                        </p>
+                        <button class="add-to-cart">Add to Cart</button>
+
+                    </div>
+                </div>
+
+
+                <div class="card">
+                    <div class="card-img">
+                        <img src="/FinalProject/Images/product5.jfif" alt="e-Comm Logo" />
+
+                    </div>
+                    <div class="discription-img">
+                        <p class="tit">Winter Zipper</p>
+                        <p class="star">★★★★☆</p>
+                        <p>
+                            <span class="price">$120</span>
+                            &nbsp;
+                            <span class="discount">$100</span>
+                        </p>
+                        <button class="add-to-cart">Add to Cart</button>
+
+                    </div>
+                </div>
+
+
+                <div class="card">
+                    <div class="card-img">
+                        <img src="/FinalProject/Images/product6.jfif" alt="e-Comm Logo" />
+
+                    </div>
+                    <div class="discription-img">
+                        <p class="tit">Winter Zipper</p>
+                        <p class="star">★★★★☆</p>
+                        <p>
+                            <span class="price">$70</span>
+                            &nbsp;
+                            <span class="discount">$100</span>
+                        </p>
+                        <button class="add-to-cart">Add to Cart</button>
+
+                    </div>
+                </div>
+
+
+                <div class="card">
+                    <div class="card-img">
+                        <img src="/FinalProject/Images/product7.avif" alt="e-Comm Logo" />
+
+                    </div>
+                    <div class="discription-img">
+                        <p class="tit">Winter Zipper</p>
+                        <p class="star">★★★★☆</p>
+                        <p>
+                            <span class="price">$70</span>
+                            &nbsp;
+                            <span class="discount">$100</span>
+                        </p>
+                        <button class="add-to-cart">Add to Cart</button>
+
+                    </div>
+                </div>
+
+
+                <div class="card">
+                    <div class="card-img">
+                        <img src="/FinalProject/Images/product8.avif" alt="e-Comm Logo" />
+
+                    </div>
+                    <div class="discription-img">
+                        <p class="tit">Winter Zipper</p>
+                        <p class="star">★★★★☆</p>
+                        <p>
+                            <span class="price">$70</span>
+                            &nbsp;
+                            <span class="discount">$100</span>
+                        </p>
+                        <button class="add-to-cart">Add to Cart</button>
+
+                    </div>
+                </div>
+
+                <div class="card">
+                    <div class="card-img">
+                        <img src="/FinalProject/Images/product9.jfif" alt="e-Comm Logo" />
+
+                    </div>
+                    <div class="discription-img">
+                        <p class="tit">Winter Zipper</p>
+                        <p class="star">★★★★☆</p>
+                        <p>
+                            <span class="price">$70</span>
+                            &nbsp;
+                            <span class="discount">$100</span>
+                        </p>
+                        <button class="add-to-cart">Add to Cart</button>
+
+                    </div>
+                </div>
+
+                <div class="card">
+
+                    <div class="card-img">
+                        <img src="/FinalProject/Images/product10.webp" alt="e-Comm Logo" />
+
+                    </div>
+                    <div class="discription-img">
+                        <p class="tit">Winter Zipper</p>
+                        <p class="star">★★★★☆</p>
+                        <p>
+                            <span class="price">$70</span>
+                            &nbsp;
+                            <span class="discount">$100</span>
+                        </p>
+                        <button class="add-to-cart">Add to Cart</button>
+
+                    </div>
+                </div>
+
+
+
+
+            </div>
+
+
+
+            <!-- ******************************************* -->
+            <div class="blog-section">
+                <h2 class="section-title">Our Blog</h2>
+
+                <div class="blog-cards">
+
+                    <div class="blog-card">
+                        <span class="badge">Lifestyle</span>
+                        <img src="/FinalProject/Images/product10.webp" alt="e-Comm Logo" />
+                        <div class="blog-content">
+                            <h3>Lorem ipsum dolor sit amet consec.</h3>
+                            <p>By Shop Admin</p>
+                        </div>
+                    </div>
+
+                    <div class="blog-card">
+                        <span class="badge">Lifestyle</span>
+                        <img src="/FinalProject/Images/product10.webp" alt="e-Comm Logo" />
+                        <div class="blog-content">
+                            <h3>Lorem ipsum dolor sit amet consec.</h3>
+                            <p>By Shop Admin</p>
+                        </div>
+                    </div>
+
+                    <div class="blog-card">
+                        <span class="badge">Lifestyle</span>
+                        <img src="/FinalProject/Images/product10.webp" alt="e-Comm Logo" />
+                        <div class="blog-content">
+                            <h3>Lorem ipsum dolor sit amet consec.</h3>
+                            <p>By Shop Admin</p>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+
+
+
+            <!-- ******************************************* -->
+
+            <div class="footer">
+                <!-- Column 1: Logo & Social Media -->
+                <div class="f-col">
+
+                    <div class="social-icons">
+                        <img src="../Task/Task06/TaskEidEladha/easybank-landing-page-master/images/icon-facebook.svg"
+                            alt="Facebook" />
+                        <img src="../Task/Task06/TaskEidEladha/easybank-landing-page-master/images/icon-youtube.svg"
+                            alt="YouTube" />
+                        <img src="../Task/Task06/TaskEidEladha/easybank-landing-page-master/images/icon-twitter.svg"
+                            alt="Twitter" />
+                        <img src="../Task/Task06/TaskEidEladha/easybank-landing-page-master/images/icon-pinterest.svg"
+                            alt="Pinterest" />
+                        <img src="../Task/Task06/TaskEidEladha/easybank-landing-page-master/images/icon-instagram.svg"
+                            alt="Instagram" />
+                    </div>
+                </div>
+
+                <!-- Column 2: Navigation Links 1 -->
+                <div class="f-col">
+                    <ul>
+                        <li>About Us</li>
+                        <li>Contact</li>
+                        <li><a href="../Task/Task06/TaskEidEladha/Demo/blog.html" style="color: white;">Blog</a></li>
+                    </ul>
+                </div>
+
+                <!-- Column 3: Navigation Links 2 -->
+                <div class="f-col">
+                    <ul>
+                        <li>Careers</li>
+                        <li>Support</li>
+                        <li>Privacy Policy</li>
+                    </ul>
+                </div>
+
+                <!-- Column 4: CTA and Copyright -->
+                <div class="f-col right">
+                    <p>© Elkholy. All Rights Reserved</p>
+                </div>
+            </div>
+
+            <!-- ******************************************* -->
+
+        </div>
+        <script src="script.js"></script>
+
+
+
+</body>
+
+</html>
