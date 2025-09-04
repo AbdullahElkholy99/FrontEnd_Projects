@@ -1,0 +1,366 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+html, body {
+    height: 100%;
+    scroll-behavior: smooth;
+}
+
+body {
+    font-family: Arial, sans-serif;
+    color: #2C3E50;
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+    line-height: 1.6;
+}
+
+main {
+    flex: 1;
+}
+
+/**************************** Header **********************************/
+header {
+    background: #2C3E50;
+    color: #fff;
+    padding: 25px 30px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+}
+
+.logo {
+    font-size: 24px;
+    font-weight: bold;
+    font-family: Georgia, serif;
+}
+
+header nav {
+    display: flex;
+    gap: 20px;
+}
+
+header nav a {
+    color: #fff;
+    text-decoration: none;
+    font-weight: bold;
+    padding: 8px 16px;
+    border-radius: 4px;
+    transition: all 0.3s ease;
+}
+
+header nav a:hover {
+    color: #E74C3C;
+    background: rgba(231, 76, 60, 0.1);
+    transform: translateY(-2px);
+}
+
+/**************************** Hero Section **********************************/
+.hero {
+    position: relative;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 70vh;
+    color: #fff;
+    text-align: center;
+    overflow: hidden;
+    background: linear-gradient(135deg, #2C3E50 0%, #34495e 100%);
+}
+
+.hero::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 1000"><polygon fill="rgba(231,76,60,0.1)" points="0,0 1000,300 1000,1000 0,700"/><polygon fill="rgba(231,76,60,0.05)" points="0,200 1000,0 1000,400 0,600"/></svg>');
+    z-index: 1;
+}
+
+.hero-content {
+    max-width: 700px;
+    padding: 20px;
+    position: relative;
+    z-index: 2;
+}
+
+.hero h1 {
+    font-family: Georgia, serif;
+    font-size: 48px;
+    font-weight: bold;
+    margin-bottom: 20px;
+    text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+}
+
+.hero p {
+    font-size: 20px;
+    margin-bottom: 30px;
+    text-shadow: 1px 1px 2px rgba(0,0,0,0.3);
+}
+
+.btn {
+    background: #E74C3C;
+    color: #fff;
+    padding: 15px 30px;
+    border-radius: 6px;
+    text-decoration: none;
+    font-weight: bold;
+    display: inline-block;
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 15px rgba(231, 76, 60, 0.3);
+    border: none;
+    cursor: pointer;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+.btn:hover {
+    background: #c0392b;
+    transform: translateY(-3px);
+    box-shadow: 0 6px 20px rgba(231, 76, 60, 0.4);
+}
+
+/* Animations */
+.slide-in {
+    opacity: 0;
+    transform: translateY(50px);
+    animation: slideIn 1s ease-out forwards;
+}
+
+.delay {
+    animation-delay: 0.3s;
+}
+
+.delay2 {
+    animation-delay: 0.6s;
+}
+
+@keyframes slideIn {
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/**************************** Blog Section **********************************/
+.blog-section {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+    gap: 30px;
+    padding: 60px 40px;
+    background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
+}
+
+.card {
+    background: #fff;
+    border-radius: 15px;
+    padding: 30px;
+    text-align: center;
+    transition: all 0.4s ease;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.08);
+    position: relative;
+    overflow: hidden;
+    transform: perspective(1000px) rotateX(0deg) rotateY(0deg);
+}
+
+.card::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(231, 76, 60, 0.1), transparent);
+    transition: left 0.5s ease;
+}
+
+.card:hover::before {
+    left: 100%;
+}
+
+.card:hover {
+    transform: perspective(1000px) rotateX(5deg) rotateY(5deg) translateY(-10px);
+    box-shadow: 0 15px 35px rgba(0, 0, 0, 0.15);
+    border: 1px solid rgba(231, 76, 60, 0.2);
+}
+
+.card:nth-child(even):hover {
+    transform: perspective(1000px) rotateX(-5deg) rotateY(-5deg) translateY(-10px);
+}
+
+.card h2 {
+    font-family: Georgia, serif;
+    font-size: 24px;
+    font-weight: bold;
+    color: #2C3E50;
+    margin-bottom: 15px;
+    position: relative;
+    z-index: 2;
+}
+
+.card p {
+    font-family: Arial, sans-serif;
+    font-size: 16px;
+    margin: 15px 0 25px 0;
+    color: #5a6c7d;
+    position: relative;
+    z-index: 2;
+}
+
+.card .btn {
+    padding: 12px 25px;
+    font-size: 14px;
+    position: relative;
+    z-index: 2;
+}
+
+/**************************** Footer **********************************/
+footer {
+    background: #2C3E50;
+    color: #fff;
+    font-size: 16px;
+    text-align: center;
+    padding: 30px;
+    margin-top: auto;
+}
+
+/**************************** Responsive Design *****************************/
+
+/* Large screens */
+@media (min-width: 1200px) {
+    .blog-section {
+        grid-template-columns: repeat(3, 1fr);
+        max-width: 1200px;
+        margin: 0 auto;
+    }
+}
+
+/* Tablet */
+@media (max-width: 992px) {
+    .blog-section {
+        grid-template-columns: repeat(2, 1fr);
+        padding: 40px 30px;
+        gap: 25px;
+    }
+
+    .hero h1 {
+        font-size: 36px;
+    }
+
+    .hero p {
+        font-size: 18px;
+    }
+
+    .card {
+        padding: 25px;
+    }
+}
+
+/* Small tablets */
+@media (max-width: 768px) {
+    header {
+        padding: 20px;
+    }
+
+    .hero {
+        height: 60vh;
+        padding: 40px 20px;
+    }
+
+    .hero h1 {
+        font-size: 32px;
+    }
+
+    .blog-section {
+        padding: 40px 20px;
+    }
+}
+
+/* Mobile */
+@media (max-width: 576px) {
+    header {
+        flex-direction: column;
+        text-align: center;
+        padding: 20px;
+    }
+
+    header nav {
+        margin-top: 15px;
+        gap: 15px;
+    }
+
+    .blog-section {
+        grid-template-columns: 1fr;
+        padding: 30px 15px;
+        gap: 20px;
+    }
+
+    .hero {
+        height: 50vh;
+        padding: 30px 15px;
+    }
+
+    .hero h1 {
+        font-size: 28px;
+        margin-bottom: 15px;
+    }
+
+    .hero p {
+        font-size: 16px;
+        margin-bottom: 25px;
+    }
+
+    .btn {
+        padding: 12px 24px;
+        font-size: 14px;
+    }
+
+    .card {
+        padding: 20px;
+        border-radius: 12px;
+    }
+
+    .card h2 {
+        font-size: 20px;
+    }
+
+    .card p {
+        font-size: 14px;
+    }
+
+    .card:hover {
+        transform: translateY(-20px);
+        box-shadow: 0 8px 25px rgba(0, 0, 0, 0.1);
+    }
+
+    .card:nth-child(even):hover {
+        transform: translateY(-5px);
+    }
+}
+
+@media (max-width: 320px) {
+    .hero h1 {
+        font-size: 24px;
+    }
+
+    .hero p {
+        font-size: 14px;
+    }
+
+    .card {
+        padding: 15px;
+    }
+
+    .blog-section {
+        padding: 20px 10px;
+    }
+}
