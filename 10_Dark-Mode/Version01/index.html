@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Night Owl - Dark Mode Toggle</title>
+  <style>
+    /* CSS Variables */
+    :root {
+      --bg-color: #ffffff;
+      --text-color: #333333;
+    }
+
+    body {
+      margin: 0;
+      font-family: Arial, sans-serif;
+      background-color: var(--bg-color);
+      color: var(--text-color);
+      transition: all 0.3s ease;
+      padding: 20px;
+    }
+
+    h1 {
+      font-family: "Roboto", sans-serif;
+      font-weight: bold;
+      font-size: 24px;
+      margin-bottom: 15px;
+    }
+
+    p {
+      font-size: 16px;
+    }
+
+    /* Toggle Button */
+    .toggle-btn {
+      position: fixed;
+      top: 20px;
+      right: 20px;
+      padding: 10px 20px;
+      background-color: var(--text-color);
+      color: var(--bg-color);
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+      font-weight: bold;
+      transition: all 0.3s ease;
+    }
+
+    .toggle-btn:hover {
+      opacity: 0.8;
+    }
+
+    /* Dark Theme */
+    .dark-theme {
+      --bg-color: #333333;
+      --text-color: #ffffff;
+    }
+  </style>
+</head>
+<body>
+  <button class="toggle-btn" id="themeToggle">🌙 Dark Mode</button>
+
+  <h1>Welcome to Night Owl</h1>
+  <p>This is a demo page where you can toggle between light and dark themes. Try clicking the button above!</p>
+
+  <script>
+    const body = document.body;
+    const toggleBtn = document.getElementById("themeToggle");
+
+    // Load saved theme from localStorage
+    if (localStorage.getItem("theme") === "dark") {
+      body.classList.add("dark-theme");
+      toggleBtn.textContent = "☀️ Light Mode";
+    }
+
+    toggleBtn.addEventListener("click", () => {
+      body.classList.toggle("dark-theme");
+
+      // Save theme to localStorage
+      if (body.classList.contains("dark-theme")) {
+        localStorage.setItem("theme", "dark");
+        toggleBtn.textContent = "☀️ Light Mode";
+      } else {
+        localStorage.setItem("theme", "light");
+        toggleBtn.textContent = "🌙 Dark Mode";
+      }
+    });
+  </script>
+</body>
+</html>

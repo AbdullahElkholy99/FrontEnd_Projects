@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>QuizMania</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #f0f0f0;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      min-height: 100vh;
+      margin: 0;
+    }
+
+    .quiz-container {
+      background: #fff;
+      padding: 30px;
+      border-radius: 12px;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+      width: 400px;
+      text-align: center;
+    }
+
+    .question {
+      font-family: Verdana, sans-serif;
+      font-weight: bold;
+      font-size: 18px;
+      color: #4B0082;
+      margin-bottom: 20px;
+    }
+
+    .options {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+      margin-bottom: 20px;
+    }
+
+    .options button {
+      font-family: Arial, sans-serif;
+      font-size: 16px;
+      padding: 10px;
+      border: 2px solid #4B0082;
+      border-radius: 8px;
+      background: #fff;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      color: #4B0082;
+    }
+
+    .options button:hover {
+      background: #4B0082;
+      color: #fff;
+    }
+
+    .next-btn {
+      background: #4B0082;
+      color: #fff;
+      border: none;
+      padding: 10px 20px;
+      border-radius: 8px;
+      cursor: pointer;
+      font-size: 16px;
+    }
+
+    .next-btn:hover {
+      background: #360060;
+    }
+
+    .result {
+      font-size: 18px;
+      font-weight: bold;
+      color: #4B0082;
+      margin-top: 20px;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="quiz-container">
+    <div id="quiz">
+      <div class="question" id="question">Question text</div>
+      <div class="options" id="options"></div>
+      <button class="next-btn" id="nextBtn">Next</button>
+      <div class="result" id="result"></div>
+    </div>
+  </div>
+
+  <script>
+    const quizData = [
+      {
+        question: "What is the capital of France?",
+        options: ["London", "Paris", "Rome", "Berlin"],
+        correct: "Paris"
+      },
+      {
+        question: "Which planet is known as the Red Planet?",
+        options: ["Earth", "Jupiter", "Mars", "Venus"],
+        correct: "Mars"
+      },
+      {
+        question: "Who wrote 'Hamlet'?",
+        options: ["Charles Dickens", "Mark Twain", "William Shakespeare", "J.K. Rowling"],
+        correct: "William Shakespeare"
+      }
+    ];
+
+    let currentQuestionIndex = 0;
+    let score = 0;
+    let selectedAnswer = null;
+
+    const questionEl = document.getElementById("question");
+    const optionsEl = document.getElementById("options");
+    const nextBtn = document.getElementById("nextBtn");
+    const resultEl = document.getElementById("result");
+
+    function loadQuestion() {
+      selectedAnswer = null;
+      const currentQuestion = quizData[currentQuestionIndex];
+      questionEl.textContent = currentQuestion.question;
+      optionsEl.innerHTML = "";
+
+      currentQuestion.options.forEach(option => {
+        const button = document.createElement("button");
+        button.textContent = option;
+        button.onclick = () => selectAnswer(button, option);
+        optionsEl.appendChild(button);
+      });
+    }
+
+    function selectAnswer(button, answer) {
+      selectedAnswer = answer;
+      const allButtons = optionsEl.querySelectorAll("button");
+      allButtons.forEach(btn => btn.style.background = "#fff");
+      button.style.background = "#d1b3ff";
+    }
+
+    function checkAnswer() {
+      if (selectedAnswer) {
+        const correctAnswer = quizData[currentQuestionIndex].correct;
+        if (selectedAnswer === correctAnswer) {
+          score++;
+        }
+      }
+    }
+
+    nextBtn.addEventListener("click", () => {
+      checkAnswer();
+      currentQuestionIndex++;
+      if (currentQuestionIndex < quizData.length) {
+        loadQuestion();
+      } else {
+        showResult();
+      }
+    });
+
+    function showResult() {
+      questionEl.style.display = "none";
+      optionsEl.style.display = "none";
+      nextBtn.style.display = "none";
+      resultEl.textContent = `Your score is ${score} out of ${quizData.length}!`;
+    }
+
+    loadQuestion();
+  </script>
+
+</body>
+</html>

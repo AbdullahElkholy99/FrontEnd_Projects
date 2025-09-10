@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>HelpMe FAQ</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #f9f9f9;
+      color: #333333;
+      margin: 0;
+      padding: 40px 20px;
+    }
+
+    .faq-container {
+      max-width: 700px;
+      margin: auto;
+      background: #fff;
+      border-radius: 10px;
+      padding: 25px;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+    }
+
+    .faq-container h2 {
+      text-align: center;
+      margin-bottom: 25px;
+      font-family: 'Roboto', sans-serif;
+      font-size: 24px;
+      color: #2980B9;
+    }
+
+    .faq-item {
+      border-bottom: 1px solid #e0e0e0;
+      padding: 15px 0;
+    }
+
+    .faq-question {
+      font-family: 'Roboto', sans-serif;
+      font-weight: bold;
+      font-size: 18px;
+      cursor: pointer;
+      transition: color 0.3s ease;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .faq-question span {
+      font-size: 20px;
+      font-weight: bold;
+      color: #666;
+      transition: transform 0.3s ease, color 0.3s ease;
+    }
+
+    .faq-question.active {
+      color: #2980B9;
+    }
+
+    .faq-question.active span {
+      transform: rotate(45deg);
+      color: #2980B9;
+    }
+
+    .faq-answer {
+      font-family: Arial, sans-serif;
+      font-size: 16px;
+      max-height: 0;
+      overflow: hidden;
+      transition: max-height 0.4s ease, opacity 0.4s ease;
+      opacity: 0;
+      margin-top: 5px;
+      line-height: 1.6;
+    }
+
+    .faq-answer.show {
+      max-height: 300px;
+      opacity: 1;
+    }
+
+    /* Responsive Design */
+    @media (max-width: 600px) {
+      .faq-question {
+        font-size: 16px;
+      }
+      .faq-answer {
+        font-size: 14px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="faq-container">
+    <h2>Frequently Asked Questions</h2>
+
+    <div class="faq-item">
+      <div class="faq-question">What is HelpMe? <span>+</span></div>
+      <div class="faq-answer">HelpMe is a fictional support site that provides quick answers to common questions.</div>
+    </div>
+
+    <div class="faq-item">
+      <div class="faq-question">How do I use the FAQ section? <span>+</span></div>
+      <div class="faq-answer">Simply click on a question to expand the answer. Click again to hide it.</div>
+    </div>
+
+    <div class="faq-item">
+      <div class="faq-question">Is HelpMe free to use? <span>+</span></div>
+      <div class="faq-answer">Yes, HelpMe is completely free to use for all users.</div>
+    </div>
+  </div>
+
+  <script>
+    const questions = document.querySelectorAll(".faq-question");
+
+    questions.forEach(question => {
+      question.addEventListener("click", () => {
+        // Close all others
+        questions.forEach(q => {
+          if (q !== question) {
+            q.classList.remove("active");
+            q.nextElementSibling.classList.remove("show");
+            q.querySelector("span").textContent = "+";
+          }
+        });
+
+        // Toggle clicked one
+        question.classList.toggle("active");
+        question.nextElementSibling.classList.toggle("show");
+
+        // Toggle icon
+        const icon = question.querySelector("span");
+        icon.textContent = question.classList.contains("active") ? "−" : "+";
+      });
+    });
+  </script>
+</body>
+</html>
