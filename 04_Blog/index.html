@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Blog Categories</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 0;
+      padding: 0;
+      background: #f7f7f7;
+      text-align: center;
+    }
+    header {
+      background: #222;
+      color: #fff;
+      padding: 20px;
+    }
+    .blogs {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 20px;
+      padding: 40px;
+      max-width: 1200px;
+      margin: auto;
+    }
+    .card {
+      background: #fff;
+      border-radius: 12px;
+      box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+      padding: 20px;
+      transition: transform 0.2s ease, box-shadow 0.2s ease;
+    }
+    .card:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 8px 16px rgba(0,0,0,0.2);
+    }
+    .card img {
+      width: 100%;
+      height: 160px;
+      object-fit: cover;
+      border-radius: 8px;
+      margin-bottom: 12px;
+    }
+    .card a {
+      text-decoration: none;
+      color: #0078ff;
+      font-size: 18px;
+      font-weight: bold;
+      display: block;
+      margin-top: 8px;
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <h1>Blog Categories</h1>
+    <p>Choose a blog type to explore 🚀</p>
+  </header>
+
+  <section class="blogs">
+    <div class="card">
+      <a href="Blog01/blog.html" target="_blank">
+        <img src="images/blog01.png" alt="Blog 01">
+       Blog 01
+      </a>
+    </div>
+    <div class="card">
+      <a href="Blog02/index.html" target="_blank">
+        <img src="images/blog02.png" alt="Blog 02">
+         Blog 02
+      </a>
+    </div>
+    <div class="card">
+      <a href="Blog03/index.html" target="_blank">
+        <img src="images/blog03.png" alt="Blog 03">
+         Blog 03
+      </a>
+    </div>
+    
+  </section>
+</body>
+</html>
