@@ -77,7 +77,7 @@ body {
 .image-bk {
     width: 100vw;
     height: 70vh;
-    background-image: url("../FinalProject/Images/background2.jpg");
+    background-image: url("Images/background2.jpg");
     background-size: cover;
     background-position: center;
     background-repeat: no-repeat;

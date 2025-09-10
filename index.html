@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>My Frontend Projects</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background: #f7f7f7;
+      margin: 0;
+      padding: 0;
+      text-align: center;
+    }
+    header {
+      background: #222;
+      color: #fff;
+      padding: 20px;
+    }
+    h1 {
+      margin: 0;
+    }
+    .projects {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 20px;
+      padding: 40px;
+      max-width: 1200px;
+      margin: auto;
+    }
+    .card {
+      background: #fff;
+      border-radius: 12px;
+      box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+      padding: 20px;
+      transition: transform 0.2s ease, box-shadow 0.2s ease;
+    }
+    .card:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 8px 16px rgba(0,0,0,0.2);
+    }
+    .card img {
+      width: 100%;
+      height: 150px;
+      object-fit: cover;
+      border-radius: 8px;
+      margin-bottom: 12px;
+    }
+    .card a {
+      text-decoration: none;
+      color: #0078ff;
+      font-size: 18px;
+      font-weight: bold;
+      display: block;
+      margin-top: 8px;
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <h1>My Projects</h1>
+    <p>Click on a project to view it live 🚀</p>
+  </header>
+
+  <section class="projects">
+    <div class="card">
+      <img src="/Images/ecomm.png" alt="E-Commerce App">
+      <a href="01_eCommerceApp/">01 - E-Commerce App</a>
+    </div>
+    <div class="card">
+      <img src="/Images/dessert.png" alt="Dessert">
+      <a href="02_Desset/">02 - Dessert</a>
+    </div>
+    <div class="card">
+      <img src="/Images/buzz.png" alt="ElkholyBuzz">
+      <a href="03_ElkholyBuzz/">03 - ElkholyBuzz</a>
+    </div>
+    <div class="card">
+      <img src="/Images/blog.png" alt="Blog">
+      <a href="04_Blog/">04 - Blog</a>
+    </div>
+    <div class="card">
+      <img src="/Images/nav-bar.png" alt="Responsive Navbar">
+      <a href="05_ResponsiveNavBar/">05 - Responsive NavBar</a>
+    </div>
+    <div class="card">
+      <img src="/Images/css-animation.png" alt="CSS Animation">
+      <a href="06_CSS-Animation/">06 - CSS Animation</a>
+    </div>
+    <div class="card">
+      <img src="/Images/exam.png" alt="Create Exams">
+      <a href="07_Create-Exams/Exam01/">07 - Create Exams</a>
+    </div>
+    <div class="card">
+      <img src="/Images/todo-list.png" alt="ToDo List">
+      <a href="08_ToDo-List/Version01/">08 - ToDo List</a>
+    </div>
+    <div class="card">
+      <img src="/Images/FAQ.png" alt="FAQ">
+      <a href="09_FAQ/Version01/">09 - FAQ Section</a>
+    </div>
+    <div class="card">
+      <img src="/Images/DarkMode.png" alt="Dark Mode">
+      <a href="10_Dark-Mode/Version01/">10 - Dark Mode</a>
+    </div>
+  </section>
+</body>
+</html>
