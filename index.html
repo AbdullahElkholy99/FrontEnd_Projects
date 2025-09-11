@@ -34,7 +34,20 @@
       box-shadow: 0 4px 8px rgba(0,0,0,0.1);
       padding: 20px;
       transition: transform 0.2s ease, box-shadow 0.2s ease;
+        position: relative;
+  overflow: hidden;
     }
+
+
+  .card-link {
+    position: absolute;
+    top: 0; 
+    left: 0;
+    width: 100%; 
+    height: 100%;
+    text-indent: -9999px; /* يخفي النص */
+  }
+
     .card:hover {
       transform: translateY(-5px);
       box-shadow: 0 8px 16px rgba(0,0,0,0.2);
@@ -54,6 +67,15 @@
       display: block;
       margin-top: 8px;
     }
+    span
+       {
+      text-decoration: none;
+      color: #0078ff;
+      font-size: 18px;
+      font-weight: bold;
+      display: block;
+      margin-top: 8px;
+    }
   </style>
 </head>
 <body>
@@ -65,44 +87,68 @@
   <section class="projects">
     <div class="card">
       <img src="/Images/ecomm.png" alt="E-Commerce App">
-      <a href="01_eCommerceApp/">01 - E-Commerce App</a>
+      <a href="01_eCommerceApp/" class="card-link">E-Commerce App</a>
+      <span>E-Commerce App</span>
     </div>
     <div class="card">
       <img src="/Images/dessert.png" alt="Dessert">
-      <a href="02_Desset/">02 - Dessert</a>
+      <a href="02_Desset/" class="card-link">Dessert</a>
+      <span>Dessert</span>
     </div>
     <div class="card">
       <img src="/Images/buzz.png" alt="ElkholyBuzz">
-      <a href="03_ElkholyBuzz/">03 - ElkholyBuzz</a>
+      <a href="03_ElkholyBuzz/" class="card-link">ElkholyBuzz</a>
+      <span>ElkholyBuzz</span>
     </div>
     <div class="card">
       <img src="/Images/blog.png" alt="Blog">
-      <a href="04_Blog/">04 - Blog</a>
+      <a href="04_Blog/" class="card-link">Blog</a>
+      <span>Blog</span>
     </div>
     <div class="card">
       <img src="/Images/nav-bar.png" alt="Responsive Navbar">
-      <a href="05_ResponsiveNavBar/">05 - Responsive NavBar</a>
+      <a href="05_ResponsiveNavBar/" class="card-link">Responsive NavBar</a>
+      <span>Responsive NavBar</span>
     </div>
     <div class="card">
       <img src="/Images/css-animation.png" alt="CSS Animation">
-      <a href="06_CSS-Animation/">06 - CSS Animation</a>
+      <a href="06_CSS-Animation/" class="card-link">CSS Animation</a>
+      <span>CSS Animation</span>
     </div>
     <div class="card">
       <img src="/Images/exam.png" alt="Create Exams">
-      <a href="07_Create-Exams/Exam01/">07 - Create Exams</a>
+      <a href="07_Create-Exams/Exam01/" class="card-link">Create Exams</a>
+      <span>Create Exams</span>
     </div>
     <div class="card">
       <img src="/Images/todo-list.png" alt="ToDo List">
-      <a href="08_ToDo-List/Version01/">08 - ToDo List</a>
+      <a href="08_ToDo-List/Version01/" class="card-link">ToDo List</a>
+      <span>ToDo List</span>
     </div>
     <div class="card">
       <img src="/Images/FAQ.png" alt="FAQ">
-      <a href="09_FAQ/Version01/">09 - FAQ Section</a>
+      <a href="09_FAQ/Version01/" class="card-link">FAQ Section</a>
+      <span>FAQ Section</span>
     </div>
     <div class="card">
       <img src="/Images/DarkMode.png" alt="Dark Mode">
-      <a href="10_Dark-Mode/Version01/">10 - Dark Mode</a>
+      <a href="10_Dark-Mode/Version01/" class="card-link">Dark Mode</a>
+      <span>Dark Mode</span>
     </div>
+    <div class="card">
+      <img src="/Images/Expense-Tracker.png" alt="Expense Tracker">
+      <a href="11_Expense-Tracker/index.html" class="card-link">Expense Tracker</a>
+      <span>Expense Tracker</span>
+    </div>
+
+    <div class="card">
+      <img src="/Images/GiftTracker.jpg" alt="Gift Tracker">
+      <a href="12_GiftTracker/index.html" class="card-link">GiftTracker</a>
+      <span>GiftTracker</span>
+    </div>
+
+
+
   </section>
 </body>
 </html>

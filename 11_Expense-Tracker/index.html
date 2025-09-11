@@ -1,0 +1,504 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>BudgetWise - Advanced Expense Tracker</title>
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <style>
+    :root{
+      --bg:#ffffff; --panel:#f7f7f7; --text:#2D6A4F; --muted:#666;
+      --accent:#FFC107; --primary:#2D6A4F; --danger:#FF4C4C;
+      --card-shadow: 0 6px 18px rgba(0,0,0,0.08);
+    }
+    .dark {
+      --bg:#222; --panel:#2b2b2b; --text:#e8f5ea; --muted:#bbb;
+      --accent:#FFC107; --primary:#66c4a1; --danger:#ff7b7b;
+      --card-shadow: 0 6px 18px rgba(0,0,0,0.5);
+    }
+
+    *{box-sizing:border-box}
+    body{
+      margin:0; font-family: Arial, sans-serif; background:var(--bg); color:var(--text);
+      padding:18px;
+      transition: background .25s ease,color .25s ease;
+    }
+
+    header{display:flex;align-items:center;justify-content:space-between;gap:12px;margin-bottom:14px}
+    h1{margin:0;font-size:20px;font-weight:700;font-family:Roboto,Arial}
+
+    .controls{display:flex;gap:10px;flex-wrap:wrap;align-items:center}
+    .btn{
+      background:var(--primary); color:#fff; border:none; padding:8px 12px; border-radius:6px; cursor:pointer;
+      font-weight:700;
+    }
+    .btn.secondary{background:#666;color:#fff}
+    .btn.warn{background:var(--danger)}
+    .btn.tiny{padding:6px 8px;font-size:13px}
+
+    /* layout */
+    .top{
+      display:flex;gap:14px;margin-bottom:16px;flex-wrap:wrap;
+    }
+    .card{
+      background:var(--panel); padding:12px;border-radius:10px; box-shadow:var(--card-shadow);
+      min-width:160px; flex:1;
+    }
+    .card.small{max-width:200px}
+    .card h3{margin:0;font-size:13px;color:var(--muted)}
+    .card p{margin:6px 0 0;font-size:18px;font-weight:700}
+
+    .main{
+      display:flex;gap:20px;
+    }
+    .left{flex:1; min-width:280px}
+    .right{flex:1; min-width:300px}
+
+    /* entry form */
+    .form{display:flex;gap:8px;align-items:center;flex-wrap:wrap;margin-bottom:12px;padding:10px;background:var(--panel);border-radius:10px}
+    input[type="date"], input[type="number"], select, input[type="text"]{
+      padding:8px;border-radius:8px;border:1px solid #ddd; outline:none;
+      background:transparent;color:var(--text)
+    }
+    input[type="number"]{width:120px}
+    input[type="text"]{min-width:160px}
+
+    /* list */
+    .panel{background:var(--panel);padding:12px;border-radius:10px;box-shadow:var(--card-shadow)}
+    .expense-list{max-height:420px;overflow:auto;padding:0;margin:0;list-style:none}
+    .expense-item{
+      display:flex;justify-content:space-between;align-items:center;padding:10px;border-radius:8px;margin-bottom:8px;
+      transition:transform .25s ease,opacity .25s ease,background .25s;
+    }
+    .meta{font-size:13px;color:var(--muted)}
+    .amount{font-weight:700}
+    .expense-actions{display:flex;gap:8px;align-items:center}
+
+    .category-chip{padding:6px 10px;border-radius:20px;color:#fff;font-size:13px;margin-right:8px}
+
+    /* grouping list */
+    .group-list{margin-top:12px}
+    .group-item{display:flex;justify-content:space-between;padding:8px;border-radius:8px;margin-bottom:6px;background:rgba(0,0,0,0.03)}
+
+    /* filter area */
+    .filter-row{display:flex;gap:8px;align-items:center;flex-wrap:wrap;margin-bottom:12px}
+
+    /* footer stats */
+    .stats-row{display:flex;gap:10px;flex-wrap:wrap;margin-top:12px}
+
+    /* chart container */
+    .chart-wrap{padding:12px;background:var(--panel);border-radius:10px;box-shadow:var(--card-shadow)}
+    canvas{max-width:100%}
+
+    /* flash new item */
+    .flash{animation: flash 0.8s ease}
+    @keyframes flash{0%{transform:translateY(-4px);opacity:0}40%{transform:none;opacity:1;background:rgba(255,193,7,0.12)}100%{background:transparent}}
+
+    /* animations on remove */
+    .removing{opacity:0;transform:translateX(40px);height:0;padding:0;margin:0;border:0;transition:all .3s ease}
+
+    /* responsive */
+    @media (max-width:900px){
+      .main{flex-direction:column}
+      body{padding:12px}
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <h1>BudgetWise — Expense Tracker</h1>
+    <div class="controls">
+      <button id="darkToggle" class="btn tiny">🌙 Dark</button>
+    </div>
+  </header>
+
+  <!-- cards -->
+  <div class="top">
+    <div class="card small">
+      <h3>Total Expenses</h3>
+      <p id="card-total">$0.00</p>
+    </div>
+    <div class="card small">
+      <h3>Daily Avg</h3>
+      <p id="card-daily">$0.00</p>
+    </div>
+    <div class="card small">
+      <h3>Weekly Avg</h3>
+      <p id="card-weekly">$0.00</p>
+    </div>
+    <div class="card small">
+      <h3>Monthly Avg</h3>
+      <p id="card-monthly">$0.00</p>
+    </div>
+    <div class="card small">
+      <h3>Top Category</h3>
+      <p id="card-top">—</p>
+    </div>
+    <div class="card small">
+      <h3>Entries</h3>
+      <p id="card-count">0</p>
+    </div>
+  </div>
+
+  <!-- main area -->
+  <div class="main">
+    <!-- LEFT: list + controls -->
+    <div class="left">
+      <div class="form">
+        <input type="date" id="entry-date">
+        <input type="text" id="entry-note" placeholder="Note (optional)">
+        <select id="entry-category">
+          <option value="Food">Food</option>
+          <option value="Transport">Transport</option>
+          <option value="Shopping">Shopping</option>
+          <option value="Bills">Bills</option>
+          <option value="Other">Other</option>
+        </select>
+        <input type="number" id="entry-amount" placeholder="Amount" step="0.01" min="0">
+        <button id="addBtn" class="btn">Add Expense</button>
+      </div>
+
+      <div class="panel" style="margin-top:12px">
+        <div class="filter-row">
+          <label style="font-size:13px;color:var(--muted)">Filter:</label>
+          <input type="date" id="filter-from">
+          <input type="date" id="filter-to">
+          <button id="applyFilter" class="btn secondary tiny">Apply</button>
+          <button id="clearFilter" class="btn secondary tiny">Clear</button>
+
+          <div style="flex:1"></div>
+
+          <button id="exportCsv" class="btn tiny">Export CSV</button>
+          <button id="exportJson" class="btn tiny">Export JSON</button>
+        </div>
+
+        <div id="total" style="margin-top:8px;font-weight:700">Total: $0.00</div>
+        <div id="dailyAvg" style="color:var(--muted);margin-top:6px">Daily Avg: $0.00</div>
+
+        <ul class="expense-list" id="expenseList" style="margin-top:10px"></ul>
+
+        <div class="group-list" id="groupList"></div>
+        <div style="margin-top:8px">
+          <button class="btn.warn btn" onclick="clearAll()">Clear All</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- RIGHT: chart + summary -->
+    <div class="right">
+      <div class="chart-wrap">
+        <canvas id="chart" height="300"></canvas>
+        <div class="stats-row" style="margin-top:10px;justify-content:space-between;align-items:center">
+          <div style="font-size:14px;color:var(--muted)">Category % breakdown</div>
+          <div>
+            <button id="toggleChartBtn" class="btn tiny">Toggle Pie/Bar</button>
+          </div>
+        </div>
+      </div>
+      <div style="margin-top:12px" id="extraStats"></div>
+    </div>
+  </div>
+
+<script>
+/* Data & config */
+const colors = {
+  Food:'#2D6A4F', Transport:'#2980B9', Shopping:'#8E44AD', Bills:'#E67E22', Other:'#7f8c8d'
+};
+let expenses = JSON.parse(localStorage.getItem('bw_expenses')||'[]');
+let chartType = localStorage.getItem('bw_chartType') || 'pie';
+let ch;
+
+/* DOM */
+const entryDate = document.getElementById('entry-date');
+const entryNote = document.getElementById('entry-note');
+const entryCategory = document.getElementById('entry-category');
+const entryAmount = document.getElementById('entry-amount');
+const addBtn = document.getElementById('addBtn');
+const expenseList = document.getElementById('expenseList');
+const groupList = document.getElementById('groupList');
+const totalDiv = document.getElementById('total');
+const cardTotal = document.getElementById('card-total');
+const cardDaily = document.getElementById('card-daily');
+const cardWeekly = document.getElementById('card-weekly');
+const cardMonthly = document.getElementById('card-monthly');
+const cardTop = document.getElementById('card-top');
+const cardCount = document.getElementById('card-count');
+const dailyAvgEl = document.getElementById('dailyAvg');
+const exportCsv = document.getElementById('exportCsv');
+const exportJson = document.getElementById('exportJson');
+const filterFrom = document.getElementById('filter-from');
+const filterTo = document.getElementById('filter-to');
+const applyFilter = document.getElementById('applyFilter');
+const clearFilter = document.getElementById('clearFilter');
+const toggleChartBtn = document.getElementById('toggleChartBtn');
+const darkToggle = document.getElementById('darkToggle');
+
+/* Helpers */
+function save(){
+  localStorage.setItem('bw_expenses', JSON.stringify(expenses));
+}
+function formatCurrency(v){ return '$' + v.toFixed(2); }
+function parseDate(s){ return s ? new Date(s + 'T00:00:00') : null; }
+function daysBetween(a,b){ return Math.round((b-a)/(1000*60*60*24)); }
+
+/* Add expense: if same date+category exists => sum amounts */
+addBtn.addEventListener('click', () => {
+  const date = entryDate.value || (new Date()).toISOString().slice(0,10);
+  const note = entryNote.value.trim();
+  const category = entryCategory.value;
+  const amount = parseFloat(entryAmount.value);
+  if (!date || !category || !amount || amount<=0) { alert('Complete date, category, and positive amount'); return; }
+
+  const idx = expenses.findIndex(e => e.date === date && e.category === category && e.note === note);
+  if (idx >= 0) {
+    expenses[idx].amount += amount;
+    flashItem(idx);
+  } else {
+    expenses.push({ date, category, amount, note, id: Date.now() });
+    flashItem(expenses.length-1);
+  }
+  save();
+  entryAmount.value='';
+  entryNote.value='';
+  render();
+});
+
+/* render view (with optional filter) */
+function getFiltered(){
+  const from = filterFrom.value ? parseDate(filterFrom.value) : null;
+  const to = filterTo.value ? parseDate(filterTo.value) : null;
+  return expenses.filter(e=>{
+    const d = parseDate(e.date);
+    if (from && d < from) return false;
+    if (to && d > to) return false;
+    return true;
+  });
+}
+
+function render(){
+  const list = getFiltered().slice().sort((a,b)=> new Date(b.date) - new Date(a.date));
+  expenseList.innerHTML='';
+  // list items
+  list.forEach((e, idx) => {
+    const li = document.createElement('li');
+    li.className='expense-item';
+    li.id = 'item-'+e.id;
+    li.style.background = hexWithAlpha(colors[e.category] || colors.Other, 0.12);
+    li.innerHTML = `
+      <div style="display:flex;align-items:center;gap:8px">
+        <div class="category-chip" style="background:${colors[e.category]||colors.Other}">${e.category}</div>
+        <div>
+          <div><strong>${e.note || e.category}</strong></div>
+          <div class="meta">${e.date}</div>
+        </div>
+      </div>
+      <div class="expense-actions">
+        <div style="text-align:right">
+          <div class="amount">${formatCurrency(e.amount)}</div>
+        </div>
+        <div>
+          <button class="btn tiny" onclick="editExpense('${e.id}')">Edit</button>
+          <button class="btn.warn tiny" onclick="removeExpense('${e.id}', this)">Delete</button>
+        </div>
+      </div>
+    `;
+    expenseList.appendChild(li);
+  });
+
+  // group totals per category (for filtered set)
+  const groups = {};
+  const filtered = getFiltered();
+  filtered.forEach(e=> groups[e.category] = (groups[e.category]||0) + e.amount);
+  groupList.innerHTML = '<h4 style="margin:6px 0;color:var(--muted)">Category Totals</h4>';
+  for (const k of Object.keys(groups)) {
+    const div = document.createElement('div');
+    div.className='group-item';
+    div.innerHTML = `<div style="display:flex;gap:8px;align-items:center"><div class="category-chip" style="background:${colors[k]||colors.Other}">${k}</div><div style="color:var(--muted)">${k}</div></div><div><strong>${formatCurrency(groups[k])}</strong></div>`;
+    groupList.appendChild(div);
+  }
+
+  // stats cards & totals
+  const total = filtered.reduce((s,e)=> s+e.amount, 0);
+  document.getElementById('card-total').textContent = formatCurrency(total);
+  totalDiv.textContent = 'Total: ' + formatCurrency(total);
+  cardCount.textContent = filtered.length;
+
+  // daily avg: total / number of unique days in filtered
+  const uniqueDays = new Set(filtered.map(e=>e.date)).size || 0;
+  const dailyAvg = uniqueDays ? total/uniqueDays : 0;
+  document.getElementById('card-daily').textContent = formatCurrency(dailyAvg);
+  dailyAvgEl.textContent = 'Daily Avg: ' + formatCurrency(dailyAvg);
+
+  // weekly avg: total / unique weeks
+  const uniqueWeeks = new Set(filtered.map(e => {
+    const d = parseDate(e.date);
+    const year = d.getFullYear();
+    const week = Math.floor((d - new Date(year,0,1))/ (1000*60*60*24*7));
+    return year + '-w' + week;
+  })).size || 0;
+  const weeklyAvg = uniqueWeeks ? total/uniqueWeeks : 0;
+  cardWeekly.textContent = formatCurrency(weeklyAvg);
+
+  // monthly avg: total / unique months
+  const uniqueMonths = new Set(filtered.map(e=>{
+    const d = parseDate(e.date); return d.getFullYear() + '-' + (d.getMonth()+1);
+  })).size || 0;
+  const monthlyAvg = uniqueMonths ? total/uniqueMonths : 0;
+  cardMonthly.textContent = formatCurrency(monthlyAvg);
+
+  // top category
+  const topCat = Object.entries(groups).sort((a,b)=> b[1]-a[1])[0];
+  cardTop.textContent = topCat ? (topCat[0] + ' ' + formatCurrency(topCat[1])) : '—';
+
+  // extra stats: percentage per category
+  renderPercentages(groups, total);
+
+  updateChart(groups);
+}
+
+/* render percentages below chart */
+function renderPercentages(groups, total){
+  const el = document.getElementById('extraStats');
+  el.innerHTML='';
+  if (!total){ el.innerHTML = '<div style="color:var(--muted)">No data</div>'; return; }
+  const ul = document.createElement('div');
+  ul.style.marginTop='8px';
+  for (const k of Object.keys(groups)){
+    const pct = ((groups[k]/total)*100).toFixed(1);
+    const row = document.createElement('div');
+    row.style.display='flex'; row.style.justifyContent='space-between'; row.style.marginTop='6px';
+    row.innerHTML = `<div style="display:flex;gap:8px;align-items:center"><div style="width:10px;height:10px;border-radius:3px;background:${colors[k]||colors.Other}"></div><div style="color:var(--muted)">${k}</div></div><div><strong>${pct}%</strong></div>`;
+    ul.appendChild(row);
+  }
+  el.appendChild(ul);
+}
+
+/* Chart */
+function updateChart(groups){
+  const labels = Object.keys(groups);
+  const data = Object.values(groups);
+  const bg = labels.map(l => colors[l]||colors.Other);
+  if (ch) ch.destroy();
+  const ctx = document.getElementById('chart').getContext('2d');
+  ch = new Chart(ctx, {
+    type: chartType,
+    data: {
+      labels,
+      datasets: [{ data, backgroundColor: bg }]
+    },
+    options: {
+      responsive:true,
+      plugins:{legend:{labels:{font:{size:14}}}}
+    }
+  });
+}
+
+/* toggle chart */
+toggleChartBtn.addEventListener('click', ()=>{
+  chartType = chartType === 'pie' ? 'bar' : 'pie';
+  localStorage.setItem('bw_chartType', chartType);
+  render();
+});
+
+/* remove expense */
+function removeExpense(id, btn){
+  const idx = expenses.findIndex(e=> String(e.id) === String(id));
+  if (idx === -1) return;
+  const el = document.getElementById('item-'+id);
+  if (el){
+    el.classList.add('removing');
+    setTimeout(()=> {
+      expenses.splice(idx,1); save(); render();
+    }, 300);
+  } else {
+    expenses.splice(idx,1); save(); render();
+  }
+}
+
+/* edit - simple: prompt to change amount */
+function editExpense(id){
+  const idx = expenses.findIndex(e=> String(e.id) === String(id));
+  if (idx===-1) return;
+  const exp = expenses[idx];
+  const newAmt = parseFloat(prompt('Edit amount', exp.amount));
+  if (!isNaN(newAmt) && newAmt>0){
+    exp.amount = newAmt; save(); render();
+  }
+}
+
+/* Flash animation for newly added item */
+function flashItem(index){
+  // find id for latest or index
+  const id = expenses[index] ? expenses[index].id : null;
+  if (!id) return;
+  // render then flash
+  setTimeout(()=>{
+    const el = document.getElementById('item-'+id);
+    if (el){
+      el.classList.add('flash');
+      setTimeout(()=> el.classList.remove('flash'), 800);
+    }
+  }, 120);
+}
+
+/* Clear filter */
+applyFilter.addEventListener('click', ()=> render());
+clearFilter.addEventListener('click', ()=>{
+  filterFrom.value=''; filterTo.value=''; render();
+});
+
+/* Export CSV & JSON */
+exportJson.addEventListener('click', ()=>{
+  const data = JSON.stringify(getFiltered(), null, 2);
+  downloadFile('expenses.json', data, 'application/json');
+});
+exportCsv.addEventListener('click', ()=>{
+  const arr = getFiltered();
+  if (!arr.length) return alert('No data to export');
+  const header = ['date,category,note,amount'];
+  const rows = arr.map(r=> `${r.date},${csvSafe(r.category)},${csvSafe(r.note||'')},${r.amount}`);
+  downloadFile('expenses.csv', header.concat(rows).join('\n'), 'text/csv');
+});
+function csvSafe(s){ return '"'+String(s).replace(/"/g,'""') +'"' }
+function downloadFile(name, content, type){
+  const blob = new Blob([content], {type});
+  const url = URL.createObjectURL(blob);
+  const a = document.createElement('a'); a.href=url; a.download=name; a.click();
+  URL.revokeObjectURL(url);
+}
+
+/* clear all */
+function clearAll(){
+  if (!confirm('Clear all expenses?')) return;
+  expenses = []; save(); render();
+}
+
+/* dark mode */
+function applyDark(d){
+  if (d){ document.documentElement.classList.add('dark'); darkToggle.textContent='☀️ Light'; localStorage.setItem('bw_dark','1') }
+  else { document.documentElement.classList.remove('dark'); darkToggle.textContent='🌙 Dark'; localStorage.removeItem('bw_dark') }
+}
+darkToggle.addEventListener('click', ()=>{
+  const is = document.documentElement.classList.toggle('dark');
+  applyDark(is);
+});
+
+/* utilities */
+function hexWithAlpha(hex, a){
+  // simple hex to rgba
+  const c = hex.replace('#','');
+  const bigint = parseInt(c,16); const r=(bigint>>16)&255; const g=(bigint>>8)&255; const b=bigint&255;
+  return `rgba(${r},${g},${b},${a})`;
+}
+
+/* init */
+(function init(){
+  // load theme
+  if (localStorage.getItem('bw_dark')) applyDark(true);
+  // default date to today
+  entryDate.value = new Date().toISOString().slice(0,10);
+  render();
+})();
+</script>
+</body>
+</html>
