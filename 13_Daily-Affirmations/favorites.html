@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Uplift — Favorites</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <header class="topbar">
+    <div class="brand">✨ Uplift</div>
+    <div class="top-actions">
+      <button id="darkToggleFav" class="icon-btn" title="Toggle theme">🌙</button>
+      <a href="index.html" class="back-link">← Back</a>
+    </div>
+  </header>
+
+  <main class="stage">
+    <section class="card">
+      <h2 class="title">Saved Affirmations</h2>
+      <div id="noFavs" class="muted">No favorites yet. Save affirmations from the main page.</div>
+      <ul id="favoritesList" class="favorites-list"></ul>
+
+      <div class="fav-actions">
+        <button id="clearFavs" class="btn warn">Clear All</button>
+      </div>
+    </section>
+  </main>
+
+  <!-- Toast -->
+  <div id="toastFav" class="toast"></div>
+
+  <script src="script.js"></script>
+</body>
+</html>

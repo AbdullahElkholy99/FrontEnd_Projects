@@ -1,154 +1,395 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>My Frontend Projects</title>
-  <style>
-    body {
-      font-family: Arial, sans-serif;
-      background: #f7f7f7;
-      margin: 0;
-      padding: 0;
-      text-align: center;
-    }
-    header {
-      background: #222;
-      color: #fff;
-      padding: 20px;
-    }
-    h1 {
-      margin: 0;
-    }
-    .projects {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-      gap: 20px;
-      padding: 40px;
-      max-width: 1200px;
-      margin: auto;
-    }
-    .card {
-      background: #fff;
-      border-radius: 12px;
-      box-shadow: 0 4px 8px rgba(0,0,0,0.1);
-      padding: 20px;
-      transition: transform 0.2s ease, box-shadow 0.2s ease;
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>My Projects</title>
+    <style>
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+        font-family: Arial, sans-serif;
+      }
+      body {
+        background: #f7f7f7;
+        color: #222;
+        transition: background 0.3s, color 0.3s;
+      }
+      header {
+        text-align: center;
+        padding: 30px;
+        background: #0078ff;
+        color: white;
+      }
+      h1 {
+        margin-bottom: 10px;
+      }
+
+      /* Counters */
+      .counters {
+        display: flex;
+        justify-content: center;
+        gap: 40px;
+        padding: 30px 0;
+        background: #fff;
+        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+      }
+      .counter-box {
+        text-align: center;
+      }
+      .counter {
+        font-size: 2rem;
+        font-weight: bold;
+        color: #0078ff;
+      }
+      .counter-label {
+        margin-top: 8px;
+        font-size: 16px;
+      }
+
+      /* Search Bar */
+      .search-box {
+        text-align: center;
+        margin: 20px 0;
+      }
+      .search-box input {
+        padding: 10px 18px;
+        width: 300px;
+        max-width: 90%;
+        border: 2px solid #0078ff;
+        border-radius: 25px;
+        font-size: 16px;
+        outline: none;
+        transition: 0.3s;
+      }
+      .search-box input:focus {
+        border-color: #ff4081;
+      }
+
+      /* Projects */
+      .projects {
+        display: grid;
+        grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+        gap: 20px;
+        padding: 20px;
+      }
+      .card {
         position: relative;
-  overflow: hidden;
-    }
+        overflow: hidden;
+        border-radius: 12px;
+        box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+        background: white;
+        text-align: center;
+        transition: transform 0.4s ease;
+        animation: fadeInUp 0.8s ease;
+      }
+      .card:hover {
+        transform: translateY(-5px) scale(1.02);
+      }
+      .card img {
+        width: 100%;
+        height: 180px;
+        object-fit: cover;
+        border-radius: 12px 12px 0 0;
+      }
+      .card span {
+        display: block;
+        padding: 12px;
+        font-weight: bold;
+      }
 
+      /* Overlay */
+      .overlay {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: rgba(0, 0, 0, 0.6);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 15px;
+        opacity: 0;
+        transition: 0.4s;
+      }
+      .card:hover .overlay {
+        opacity: 1;
+      }
+      .overlay a {
+        background: #fff;
+        color: #0078ff;
+        padding: 8px 14px;
+        border-radius: 8px;
+        text-decoration: none;
+        font-size: 14px;
+        font-weight: bold;
+        transition: 0.3s;
+      }
+      .overlay a:hover {
+        background: #0078ff;
+        color: #fff;
+      }
 
-  .card-link {
-    position: absolute;
-    top: 0; 
-    left: 0;
-    width: 100%; 
-    height: 100%;
-    text-indent: -9999px; /* يخفي النص */
-  }
+      /* Dark mode */
+      body.dark {
+        background: #121212;
+        color: #eee;
+      }
+      body.dark header {
+        background: #333;
+      }
+      body.dark .card {
+        background: #1e1e1e;
+        color: #fff;
+      }
 
-    .card:hover {
-      transform: translateY(-5px);
-      box-shadow: 0 8px 16px rgba(0,0,0,0.2);
-    }
-    .card img {
-      width: 100%;
-      height: 150px;
-      object-fit: cover;
-      border-radius: 8px;
-      margin-bottom: 12px;
-    }
-    .card a {
-      text-decoration: none;
-      color: #0078ff;
-      font-size: 18px;
-      font-weight: bold;
-      display: block;
-      margin-top: 8px;
-    }
-    span
-       {
-      text-decoration: none;
-      color: #0078ff;
-      font-size: 18px;
-      font-weight: bold;
-      display: block;
-      margin-top: 8px;
-    }
-  </style>
-</head>
-<body>
-  <header>
-    <h1>My Projects</h1>
-    <p>Click on a project to view it live 🚀</p>
-  </header>
+      .dark-toggle {
+        position: fixed;
+        bottom: 20px;
+        right: 20px;
+        background: #0078ff;
+        color: white;
+        border: none;
+        border-radius: 50%;
+        width: 50px;
+        height: 50px;
+        cursor: pointer;
+        font-size: 20px;
+        box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+      }
 
-  <section class="projects">
-    <div class="card">
-      <img src="/Images/ecomm.png" alt="E-Commerce App">
-      <a href="01_eCommerceApp/" class="card-link">E-Commerce App</a>
-      <span>E-Commerce App</span>
-    </div>
-    <div class="card">
-      <img src="/Images/dessert.png" alt="Dessert">
-      <a href="02_Desset/" class="card-link">Dessert</a>
-      <span>Dessert</span>
-    </div>
-    <div class="card">
-      <img src="/Images/buzz.png" alt="ElkholyBuzz">
-      <a href="03_ElkholyBuzz/" class="card-link">ElkholyBuzz</a>
-      <span>ElkholyBuzz</span>
-    </div>
-    <div class="card">
-      <img src="/Images/blog.png" alt="Blog">
-      <a href="04_Blog/" class="card-link">Blog</a>
-      <span>Blog</span>
-    </div>
-    <div class="card">
-      <img src="/Images/nav-bar.png" alt="Responsive Navbar">
-      <a href="05_ResponsiveNavBar/" class="card-link">Responsive NavBar</a>
-      <span>Responsive NavBar</span>
-    </div>
-    <div class="card">
-      <img src="/Images/css-animation.png" alt="CSS Animation">
-      <a href="06_CSS-Animation/" class="card-link">CSS Animation</a>
-      <span>CSS Animation</span>
-    </div>
-    <div class="card">
-      <img src="/Images/exam.png" alt="Create Exams">
-      <a href="07_Create-Exams/Exam01/" class="card-link">Create Exams</a>
-      <span>Create Exams</span>
-    </div>
-    <div class="card">
-      <img src="/Images/todo-list.png" alt="ToDo List">
-      <a href="08_ToDo-List/Version01/" class="card-link">ToDo List</a>
-      <span>ToDo List</span>
-    </div>
-    <div class="card">
-      <img src="/Images/FAQ.png" alt="FAQ">
-      <a href="09_FAQ/Version01/" class="card-link">FAQ Section</a>
-      <span>FAQ Section</span>
-    </div>
-    <div class="card">
-      <img src="/Images/DarkMode.png" alt="Dark Mode">
-      <a href="10_Dark-Mode/Version01/" class="card-link">Dark Mode</a>
-      <span>Dark Mode</span>
-    </div>
-    <div class="card">
-      <img src="/Images/Expense-Tracker.png" alt="Expense Tracker">
-      <a href="11_Expense-Tracker/index.html" class="card-link">Expense Tracker</a>
-      <span>Expense Tracker</span>
+      /* Scroll to Top */
+      #scrollTop {
+        position: fixed;
+        bottom: 80px;
+        right: 20px;
+        background: #ff4081;
+        color: white;
+        border: none;
+        border-radius: 50%;
+        width: 50px;
+        height: 50px;
+        cursor: pointer;
+        font-size: 20px;
+        display: none;
+        box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+      }
+
+      /* Animations */
+      @keyframes fadeInUp {
+        from {
+          opacity: 0;
+          transform: translateY(20px);
+        }
+        to {
+          opacity: 1;
+          transform: translateY(0);
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <header>
+      <h1>🚀 My Projects</h1>
+      <p>Check out my latest work with smooth animations</p>
+    </header>
+
+    <!-- Counters -->
+    <section class="counters">
+      <div class="counter-box">
+        <div class="counter" data-target="12">0</div>
+        <div class="counter-label">Total Projects</div>
+      </div>
+      <div class="counter-box">
+        <div class="counter" data-target="7">0</div>
+        <div class="counter-label">UI Designs</div>
+      </div>
+      <div class="counter-box">
+        <div class="counter" data-target="5">0</div>
+        <div class="counter-label">Apps</div>
+      </div>
+    </section>
+
+    <!-- Search -->
+    <div class="search-box">
+      <input
+        type="text"
+        id="search"
+        placeholder="🔍 Search project by name..."
+      />
     </div>
 
-    <div class="card">
-      <img src="/Images/GiftTracker.jpg" alt="Gift Tracker">
-      <a href="12_GiftTracker/index.html" class="card-link">GiftTracker</a>
-      <span>GiftTracker</span>
-    </div>
+    <!-- Projects -->
+    <section class="projects">
+      <div class="card">
+        <img src="ecomm.png" alt="E-Commerce App" />
+        <span>E-Commerce App</span>
 
+        <div class="overlay">
+          <a href="01_eCommerceApp/" target="_blank">🚀 Visit</a>
+          <a href="ecomm.png" target="_blank">🔍 Preview</a>
+        </div>
+      </div>
+      <div class="card">
+        <img src="dessert.png" alt="Dessert" />
+        <span>Dessert</span>
 
+        <div class="overlay">
+          <a href="02_Desset/" target="_blank">🚀 Visit</a>
+          <a href="dessert.png" target="_blank">🔍 Preview</a>
+        </div>
+      </div>
+      <div class="card">
+        <img src="buzz.png" alt="ElkholyBuzz" />
 
-  </section>
-</body>
+        <div class="overlay">
+          <a href="03_ElkholyBuzz/" target="_blank">🚀 Visit</a>
+          <a href="buzz.png" target="_blank">🔍 Preview</a>
+        </div>
+
+        <span>ElkholyBuzz</span>
+      </div>
+      <div class="card">
+        <img src="blog.png" alt="Blog" />
+        <div class="overlay">
+          <a href="04_Blog/" target="_blank">🚀 Visit</a>
+          <a href="blog.png" target="_blank">🔍 Preview</a>
+        </div>
+
+        <span>Blog</span>
+      </div>
+      <div class="card">
+        <img src="nav-bar.png" alt="nav-bar" />
+        <div class="overlay">
+          <a href="05_ResponsiveNavBar/" target="_blank">🚀 Visit</a>
+          <a href="nav-bar.png" target="_blank">🔍 Preview</a>
+        </div>
+        <span>Responsive NavBar</span>
+      </div>
+      <div class="card">
+        <img src="css-animation.png" alt="CSS Animation" />
+
+        <div class="overlay">
+          <a href="06_CSS-Animation/" target="_blank">🚀 Visit</a>
+          <a href="css-animation.png" target="_blank">🔍 Preview</a>
+        </div>
+        <span>CSS Animation</span>
+      </div>
+      <div class="card">
+        <img src="exam.png" alt="Create Exams" />
+
+        <div class="overlay">
+          <a href="07_Create-Exams/Exam01/" target="_blank">🚀 Visit</a>
+          <a href="exam.png" target="_blank">🔍 Preview</a>
+        </div>
+        <span>Create Exams</span>
+      </div>
+      <div class="card">
+        <img src="todo-list.png" alt="ToDo List" />
+
+        <div class="overlay">
+          <a href="08_ToDo-List/Version01/" target="_blank">🚀 Visit</a>
+          <a href="todo-list.png" target="_blank">🔍 Preview</a>
+        </div>
+        <span>ToDo List</span>
+      </div>
+      <div class="card">
+        <img src="FAQ.png" alt="FAQ" />
+
+        <div class="overlay">
+          <a href="09_FAQ/Version01/" target="_blank">🚀 Visit</a>
+          <a href="FAQ.png" target="_blank">🔍 Preview</a>
+        </div>
+        <span>FAQ Section</span>
+      </div>
+      <div class="card">
+        <img src="DarkMode.png" alt="Dark Mode" />
+        <div class="overlay">
+          <a href="10_Dark-Mode/Version01/" target="_blank">🚀 Visit</a>
+          <a href="DarkMode.png" target="_blank">🔍 Preview</a>
+        </div>
+        <span>Dark Mode</span>
+      </div>
+      <div class="card">
+        <img src="Expense-Tracker.png" alt="Expense Tracker" />
+
+        <div class="overlay">
+          <a href="11_Expense-Tracker/index.html" target="_blank">🚀 Visit</a>
+          <a href="Expense-Tracker.png" target="_blank">🔍 Preview</a>
+        </div>
+        <span>Expense Tracker</span>
+      </div>
+      <div class="card">
+        <img src="GiftTracker.jpg" alt="Gift Tracker" />
+        <div class="overlay">
+          <a href="12_GiftTracker/index.html" target="_blank">🚀 Visit</a>
+          <a href="GiftTracker.jpg" target="_blank">🔍 Preview</a>
+        </div>
+        <a href="12_GiftTracker/index.html" class="card-link">GiftTracker</a>
+        <span>GiftTracker</span>
+      </div>
+      <div class="card">
+        <img src="Daily-Affirmations.png" alt="Daily Affirmations" />
+        <div class="overlay">
+          <a href="13_Daily-Affirmations/index.html" target="_blank"
+            >🚀 Visit</a
+          >
+          <a href="Daily-Affirmations.png" target="_blank">🔍 Preview</a>
+        </div>
+
+        <span>Daily Affirmations</span>
+      </div>
+    </section>
+
+    <!-- Dark Mode + Scroll -->
+    <button class="dark-toggle">🌙</button>
+    <button id="scrollTop">⬆</button>
+
+    <script>
+      // Counter Animation
+      const counters = document.querySelectorAll(".counter");
+      counters.forEach((counter) => {
+        const update = () => {
+          const target = +counter.getAttribute("data-target");
+          const count = +counter.innerText;
+          const inc = Math.ceil(target / 100);
+          if (count < target) {
+            counter.innerText = count + inc;
+            setTimeout(update, 50);
+          } else {
+            counter.innerText = target;
+          }
+        };
+        update();
+      });
+
+      // Search Filter
+      const searchInput = document.getElementById("search");
+      const cards = document.querySelectorAll(".card");
+      searchInput.addEventListener("keyup", () => {
+        const term = searchInput.value.toLowerCase();
+        cards.forEach((card) => {
+          const text = card.querySelector("span").innerText.toLowerCase();
+          card.style.display = text.includes(term) ? "block" : "none";
+        });
+      });
+
+      // Dark Mode
+      const darkBtn = document.querySelector(".dark-toggle");
+      darkBtn.addEventListener("click", () => {
+        document.body.classList.toggle("dark");
+      });
+
+      // Scroll to Top
+      const scrollBtn = document.getElementById("scrollTop");
+      window.addEventListener("scroll", () => {
+        scrollBtn.style.display = window.scrollY > 200 ? "block" : "none";
+      });
+      scrollBtn.addEventListener("click", () => {
+        window.scrollTo({ top: 0, behavior: "smooth" });
+      });
+    </script>
+  </body>
 </html>

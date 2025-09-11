@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Uplift — Daily Affirmations</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <header class="topbar">
+    <div class="brand">✨ Uplift</div>
+    <div class="top-actions">
+      <button id="darkToggle" class="icon-btn" title="Toggle theme">🌙</button>
+      <a href="favorites.html" class="fav-link">Favorites <span id="favCount" class="fav-count">0</span></a>
+    </div>
+  </header>
+
+  <main class="stage">
+    <section class="card main-card">
+      <h2 class="title">Your Daily Affirmation</h2>
+
+      <div class="affirmation-area" id="affirmationArea" aria-live="polite">
+        <p id="affirmationText" class="affirmation-text">Loading...</p>
+      </div>
+
+      <div class="controls-row">
+        <button id="saveBtn" class="btn primary">Save</button>
+        <button id="nextBtn" class="btn">Next</button>
+        <button id="copyBtn" class="icon-btn" title="Copy">📋</button>
+
+        <div class="share-group">
+          <button id="waShare" class="icon-btn" title="Share to WhatsApp">🟢</button>
+          <button id="twShare" class="icon-btn" title="Share to Twitter">🐦</button>
+          <button id="fbShare" class="icon-btn" title="Share to Facebook">🔵</button>
+        </div>
+      </div>
+
+      <div class="hint">Tip: "Next" shows alternative affirmations for today. The main daily affirmation remains unchanged.</div>
+    </section>
+  </main>
+
+  <!-- Toast -->
+  <div id="toast" class="toast"></div>
+
+  <script src="script.js"></script>
+</body>
+</html>
